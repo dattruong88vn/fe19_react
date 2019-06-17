@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import Product from './Product.jsx';
 
 export default class ProductList extends Component {
+
+    mangSP = this.props.mangSP;
+
+    renderSP= () => {
+       return this.mangSP.map((item, index) => {
+           return <Product xemChiTiet={this.props.xemChiTiet} sanPham={item} key={index} />
+       })
+    }
+
     render() {
         return (
             <div className="row">
-                <div className="col-12 col-sm-6 col-lg-3">
-                    <Product />
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                    <Product />
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                    <Product />
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                    <Product />
-                </div>
+                {this.renderSP()}
             </div>
         )
     }
