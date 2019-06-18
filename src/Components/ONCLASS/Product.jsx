@@ -27,7 +27,7 @@ export default class Product extends Component {
 
     render() {
 
-        let {name, img} = this.props.sanPham;
+        let { name, img } = this.props.sanPham;
         return (
             <div className="col-12 col-sm-6 col-lg-3">
                 <div className="card" style={{}}>
@@ -35,7 +35,7 @@ export default class Product extends Component {
                     <div className="card-body">
                         <h4 className="card-title">{name}</h4>
                         {this.showInfo()}
-                        <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick = { () => this.props.xemChiTiet(this.props.sanPham) }>Modal</button>
+                        <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={() => this.props.xemChiTiet(this.props.sanPham)}>Modal</button>
                         <button className="btn btn-success" onClick={() => this.changeStatus()}>Show Info</button>
                         <button className="btn btn-danger">Card</button>
                     </div>
