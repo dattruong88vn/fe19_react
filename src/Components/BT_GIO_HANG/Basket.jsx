@@ -1,79 +1,51 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import CurrencyFormat from 'react-currency-format';
 
 export default class Basket extends Component {
 
     constructor(props) {
         super(props);
-        this.state ={
-            delete : true
+        this.state = {
+            soLuong: 1,
         }
     }
 
-    mangGioHang = [];
-    // tongTien = 0;
+    // increase() {
+    //     this.setState({
+    //         amount: this.state.amount + 1,
+    //     })
+    // }
 
-    showGioHang = () => {
-        if ((this.props.spGioHang.id) && (this.mangGioHang.findIndex(item => item.id === this.props.spGioHang.id) === -1)) {
-            this.mangGioHang.push(this.props.spGioHang);
-        }
-        console.log(this.mangGioHang);
-
-        return this.mangGioHang.map((item) => {
-            return <tr>
-                        <td><img style={{ height: 100 }} src={item.img} /></td>
-                        <td>{item.name}</td>
-                        <td>{item.price.slice(0, -6)}</td>
-                        <td><input type="number" placeholder='1'/></td>
-                        <td>{}</td>
-                        <td><button className="btn btn-danger" onClick = {() => this.xoaSP(item)}>Xóa</button></td>
-                    </tr>
-        })
-    }
-
-    showTongTien = () => {
-        if (this.mangGioHang.length !== 0) {
-            return <tr>
-                <td colSpan='4'>Tổng tiền</td>
-                <td></td>
-                <td><button className="btn btn-success">Thanh Toán</button></td>
-            </tr>
-        }
-        return <tr></tr>
-    }
-
-    xoaSP = (sp) => {
-        let index = this.mangGioHang.findIndex(item => item.id === sp.id);
-        console.log(this.mangGioHang);
-        this.mangGioHang.splice(index, 1);
-        console.log(this.mangGioHang);
-        console.log(this.props.spGioHang);
-        this.setState({
-            delete: false,
-        })
-    }
+    // decrease() {
+    //     if (this.state.amount > 1) {
+    //         this.setState({
+    //             amount: this.state.amount - 1,
+    //         })
+    //     }
+    // }
 
     render() {
         return (
-            <div className="container">
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Hình ảnh</th>
-                            <th>Sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.showGioHang()}
-                        {this.showTongTien()}
-                    </tbody>
-                </table>
-            </div>
+            <tr>
+                <th><img src={this.props.sp.img} style={{ height: 100 }} /></th>
+                <th>{this.props.sp.name}</th>
+                <th><CurrencyFormat value={this.props.sp.price} prefix={'$ '} thousandSeparator={true}/></th>
+                <th>
+                    <input 
+                        id="number"
+                        type="number" 
+                        placeholder='1'
+                        min="1" 
+                        pattern="[0-9]*"
+                        value = { this.props.soLuong }
+                    />
+                    {/* <button onClick={() => this.increase()}>+</button>
+                    <button onClick={() => this.decrease()}>-</button> */}
+                </th>
+                <th colSpan="2">{}</th>
+                <th><button className="btn btn-danger" onClick={() => this.props.xoaSP(this.props.sp)}>Xoá</button></th>
+            </tr>
         )
     }
 }
 
-{/* <input type="number" placeholder='0'/> */ }

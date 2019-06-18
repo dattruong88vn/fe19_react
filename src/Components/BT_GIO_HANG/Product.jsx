@@ -12,7 +12,7 @@ export default class Product extends Component {
                     <div className="card-body">
                         <h4 className="card-title">{name}</h4>
                         <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={() => this.props.xemChiTiet(this.props.sanPham)}>Modal</button>
-                        <button className="btn btn-danger" onClick={ () => this.props.putGioHang(this.props.sanPham)}>Card</button>
+                        <button className="btn btn-danger" onClick={ () => this.props.putGioHang(this.props.sanPham)}>Thêm</button>
                     </div>
                 </div>
             </div>
