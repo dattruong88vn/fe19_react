@@ -24,16 +24,12 @@ export default class BTGIOHANG extends Component {
                 'backCamera_4', frontCamera: 'frontCamera_4', img: './img/sp_blackberry.png', desc: 'BlackBerry is a line of smartphones, tablets, and services originally designed'
         }]
     mangGioHang = [];
-    tongTien = 0;
 
     constructor(props) {
         super(props);
         this.state = {
             modalContent: {},
             spGioHang: {},
-            soLuong: 0,
-            money: 0,
-            totalMoney: 0
         }
     }
 
@@ -66,28 +62,16 @@ export default class BTGIOHANG extends Component {
         // render lại component
         this.setState({
             spGioHang: sp,
-            soLuong: 1
         })
     }
 
     /*
-        1. Duyệt mangGioHang, truyền item về componetn Basket
-        2. Truyền thêm 2 function xoaSP và themBotSP
+        1. Them Bot san pham
     */
-    showGioHang = () => {
-        return this.mangGioHang.map((item) => {
-            return <Basket
-                soLuongSP={this.state.soLuong}
-                // themBotSP={this.themBotSP} 
-                xoaSP={this.xoaSP} sp={item}
-            />
-        })
+    themBotSP = (sp) => {
+        console.log(sp);
     }
 
-    /*
-        1. Sau khi click 2 nút arrow trong ô input (type number) trong Basket component,
-        thêm sp vào mangGioHang
-    */
 
     /*
          1. Sau khi click button xóa trong component Basket --> trả về một sp 
@@ -105,7 +89,8 @@ export default class BTGIOHANG extends Component {
         })
     }
 
-    showTongTien = () => {
+
+    showTable = () => {
         if (this.mangGioHang.length === 0) {
             return <tr></tr>
         }
@@ -135,6 +120,21 @@ export default class BTGIOHANG extends Component {
         }
     }
 
+
+    /*
+       1. Duyệt mangGioHang, truyền item về componetn Basket
+       2. Truyền thêm 2 function xoaSP và themBotSP
+   */
+    showGioHang = () => {
+        return this.mangGioHang.map((item) => {
+            return <Basket
+                themBotSP = {this.themBotSP}
+                xoaSP={this.xoaSP} 
+                sp={item}
+            />
+        })
+    }
+
     render() {
         return (
             <div className="container w-75">
@@ -150,9 +150,9 @@ export default class BTGIOHANG extends Component {
 
                 {/* Giỏ hàng */}
                 <div className="container">
-                    {this.showTongTien()}
+                    {this.showTable()}
                 </div>
-                
+
                 {/* Show Modal */}
                 <Modal content={this.state.modalContent} key={2} />
             </div>
