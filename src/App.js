@@ -6,6 +6,7 @@ import Carousel from './Components/Carousel/Carousel';
 import Footer from './Components/Footer';
 import ProductList from './Components/ProductList';
 import Modal from './Components/Modal';
+import BaiTapGioHang from './Components/BaiTapGioHang/BaiTapGioHang';
 
 
 export default class App extends Component {
@@ -52,7 +53,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div className="App">
+        {/* <div className="App">
           <Header />
           <Carousel />
           <div className="bg-dark text-center py-4">
@@ -65,7 +66,9 @@ export default class App extends Component {
           </div>
           <Footer />
         </div>
-        <Modal content={this.state.modalContent}/>
+        <Modal content={this.state.modalContent}/> */}
+
+        <BaiTapGioHang />
       </div>
     )
   }
