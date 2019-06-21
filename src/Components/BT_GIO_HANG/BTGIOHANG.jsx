@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import ProductList from './ProductList';
+import ModalChiTietSanPham from './ModalChiTietSanPham';
 import Basket from './Basket';
-import Modal from './Modal';
-
 
 export default class BTGIOHANG extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            sanPhamDuocXem: {},
+            sanPhamDuocChon: {}
+        }
+    }
 
     mangDienThoai =
         [{
@@ -23,142 +30,56 @@ export default class BTGIOHANG extends Component {
             id: 'sp_4', name: 'Blacberry', price: '15000000', screen: 'screen_4', backCamera:
                 'backCamera_4', frontCamera: 'frontCamera_4', img: './img/sp_blackberry.png', desc: 'BlackBerry is a line of smartphones, tablets, and services originally designed'
         }]
-    mangGioHang = [];
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalContent: {},
-            spGioHang: {},
-        }
-    }
+    mangSanPhamDuocChon = [];
 
-    /**
-        1. Xem chi tiết khi click vào button Modal trong Product Component
-        2. Sau đó thay đổi thuộc tính modalContent trong state để render lại
-    */
-    xemChiTiet = (sp) => {
+    xemThongTin = (sp) => {
         this.setState({
-            modalContent: sp
+            sanPhamDuocXem: sp
         })
     }
 
-    /**
-        1. Thêm sp vào mảng giỏ hàng khi click button Thêm trong Product Component
-        2. Thay đôi thuộc tính spGioHang trong state để render lại
-    */
-    putGioHang = (sp) => {
-        /*
-            Nếu (hoặc chiều dài mảng = 0)
-                (hoặc sp.id chưa tồn tại trong mảng)
-        */
+    xoaSPGioHang = (sp) => {
+        let index = this.mangSanPhamDuocChon.findIndex(item =>item.id === sp.id);
+        this.mangSanPhamDuocChon.splice(index, 1);
+        this.setState({
+            sanPhamDuocChon: {}
+        })
+    }
+
+    chonSanPham = (sp) => {
         if (
-            (this.mangGioHang.length === 0) ||
-            (this.mangGioHang.findIndex((item) => item.id === sp.id) === -1)
+            this.mangSanPhamDuocChon.length === 0 ||
+            this.mangSanPhamDuocChon.findIndex(item => item.id === sp.id) === -1
         ) {
-            this.mangGioHang.push(sp);
+            this.mangSanPhamDuocChon.push(sp);
         }
-        console.log(this.mangGioHang);
-        // render lại component
         this.setState({
-            spGioHang: sp,
-        })
-    }
-
-    /*
-        1. Them Bot san pham
-    */
-    themBotSP = (sp) => {
-        console.log(sp);
-    }
-
-
-    /*
-         1. Sau khi click button xóa trong component Basket --> trả về một sp 
-         2. Tìm vị trí của sản phẩm đó trong mảng và xóa
-     */
-    xoaSP = (sp) => {
-        // let index = this.mangGioHang.findIndex(item => item.id === sp.id);
-        // this.mangGioHang.splice(index, 1);
-        // Tạo mảng mới gồm những sản phẩm không trùng id
-        this.mangGioHang = this.mangGioHang.filter(item => item.id !== sp.id);
-        console.log(this.mangGioHang);
-
-        this.setState({
-            spGioHang: {}
-        })
-    }
-
-
-    showTable = () => {
-        if (this.mangGioHang.length === 0) {
-            return <tr></tr>
-        }
-        else {
-            return (
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Hình ảnh</th>
-                            <th>Sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th colSpan="2">Thành tiền</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.showGioHang()}
-                        <tr>
-                            <td colSpan="4" className="text-right font-weight-bold">Tổng tiền</td>
-                            <td colSpan="2"></td>
-                            <td><button className="btn btn-success">Thanh toán</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            )
-        }
-    }
-
-
-    /*
-       1. Duyệt mangGioHang, truyền item về componetn Basket
-       2. Truyền thêm 2 function xoaSP và themBotSP
-   */
-    showGioHang = () => {
-        return this.mangGioHang.map((item) => {
-            return <Basket
-                themBotSP = {this.themBotSP}
-                xoaSP={this.xoaSP} 
-                sp={item}
-            />
+            /**
+                function push return a number --> mangSanPhamDuocChon === 1 sau lần push đầu tiên
+                        mangSanPhamDuocChon: this.state.mangSanPhamDuocChon.push(sp)
+                        --> dùng spDuocChon
+            */
+           sanPhamDuocChon: sp
         })
     }
 
     render() {
         return (
-            <div className="container w-75">
-                {/* Hiển thị sản phẩm */}
-                <div className="text-center">
-                    <h2>DANH SÁCH SẢN PHẨM</h2>
-                    <div>
-                        <ProductList xemChiTiet={this.xemChiTiet} putGioHang={this.putGioHang} mangSP={this.mangDienThoai} key={1} />
-                    </div>
-                </div>
-                {/* Lời chào */}
-                <div className='btn btn-warning my-4'>Chào mừng shopping online</div>
+            <div>
+                <ProductList
+                    mangSP = {this.mangDienThoai}
+                    xemThongTin = {this.xemThongTin}
+                    chonSanPham = {this.chonSanPham}
+                    xoaSPGioHang = {this.xoaSPGioHang}
+                />
+                <Basket 
+                    mangSanPhamDuocChon={this.mangSanPhamDuocChon}
+                    xoaSPGioHang = {this.xoaSPGioHang}
+                />
 
-                {/* Giỏ hàng */}
-                <div className="container">
-                    {this.showTable()}
-                </div>
-
-                {/* Show Modal */}
-                <Modal content={this.state.modalContent} key={2} />
+                <ModalChiTietSanPham sanPhamDuocXem={this.state.sanPhamDuocXem} />
             </div>
         )
     }
 }
-
-
-

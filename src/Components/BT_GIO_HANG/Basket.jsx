@@ -1,37 +1,59 @@
 import React, { Component } from 'react';
-import CurrencyFormat from 'react-currency-format';
+import BasketProduct from './BasketProduct';
 
 export default class Basket extends Component {
-
+    
     constructor(props) {
         super(props);
         this.state = {
+            
         }
     }
 
 
-
+    renderMangSanPhamDuocChon = () => {
+        return this.props.mangSanPhamDuocChon.map((item, index) => {
+            return <BasketProduct 
+                        sp = {item}
+                        index = {index}
+                        xoaSPGioHang = {this.props.xoaSPGioHang}
+                        tinhTienSanPham = {this.tinhTienSanPham}
+                    />
+        })
+    }
+    
+    tinhTienSanPham = (tien) => {
+        console.log(tien);
+    }
 
     render() {
         return (
-            <tr>
-                <th><img src={this.props.sp.img} style={{ height: 100 }} /></th>
-                <th>{this.props.sp.name}</th>
-                <th><CurrencyFormat value={this.props.sp.price} prefix={'$ '} thousandSeparator={true} /></th>
-                <th>
-                    <input
-                        type="number"
-                        placeholder='1'
-                        min="1"
-                        pattern="[0-9]*" 
-                        inputMode="numeric"
-                        onChange={() => this.props.themBotSP(this.props.sp)}
-                    />
-                </th>
-                <th colSpan="2"></th>
-                <th><button className="btn btn-danger" onClick={() => this.props.xoaSP(this.props.sp)}>Xoá</button></th>
-            </tr>
+            <div style={{ width: '80%', margin: '50px auto'}}>
+                <table className="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderMangSanPhamDuocChon()}
+                        <tr>
+                            <td colSpan="4"><b>Tổng tiền</b></td>
+                            <td>
+                                {this.tongTien}
+                            </td>
+                            <td>
+                                <button className="btn btn-success">Thanh toán</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
-

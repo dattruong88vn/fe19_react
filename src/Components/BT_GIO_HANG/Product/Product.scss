@@ -1,0 +1,20 @@
+.myProduct {
+    display: flex;
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 20px;
+        .card-top {
+            flex-shrink: 1 1 auto;
+            .card-img-top {}
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            .card-title {}
+        }
+    }
+}
