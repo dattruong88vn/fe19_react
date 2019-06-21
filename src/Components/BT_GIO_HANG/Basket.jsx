@@ -2,33 +2,30 @@ import React, { Component } from 'react';
 import BasketProduct from './BasketProduct';
 
 export default class Basket extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
-            
         }
     }
 
-
     renderMangSanPhamDuocChon = () => {
         return this.props.mangSanPhamDuocChon.map((item, index) => {
-            return <BasketProduct 
-                        sp = {item}
-                        index = {index}
-                        xoaSPGioHang = {this.props.xoaSPGioHang}
-                        tinhTienSanPham = {this.tinhTienSanPham}
-                    />
+            return <BasketProduct
+                sp={item}
+                index={index}
+                xoaSPGioHang={this.props.xoaSPGioHang}
+                tinhTienSanPham={this.tinhTienSanPham}
+            />
         })
     }
-    
-    tinhTienSanPham = (tien) => {
-        console.log(tien);
+
+    tinhTienSanPham = (tien, sp) => {
     }
 
     render() {
         return (
-            <div style={{ width: '80%', margin: '50px auto'}}>
+            <div style={{ width: '80%', margin: '50px auto' }}>
                 <table className="table table-bordered table-hover">
                     <thead>
                         <tr>

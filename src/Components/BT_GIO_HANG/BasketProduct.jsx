@@ -19,12 +19,8 @@ export default class BasketProduct extends Component {
         })
     }
 
-    eventOnChangeValueInput = () => {
-        this.changeAmount();
-        this.props.tinhTienSanPham(this.tongTien);
-    }
-
     render() {
+        this.props.tinhTienSanPham(this.tongTien, this.props.sp);
         return (
             <tr>
                 <td>
@@ -42,7 +38,7 @@ export default class BasketProduct extends Component {
                         type="number"
                         min="1"
                         value={this.state.amount}
-                        onChange={ () => this.eventOnChangeValueInput() }
+                        onChange={ () => this.changeAmount() }
                     />
                 </td>
                 <td>
