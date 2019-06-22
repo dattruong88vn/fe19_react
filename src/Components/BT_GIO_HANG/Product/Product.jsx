@@ -4,14 +4,16 @@ import './Product.scss';
 export default class Product extends Component {
 
     render() {
+        let {name, img, desc, price} = this.props.sp;
         return (
-            <div className="col-12 col-sm-6 col-lg-3 myProduct">
+            <div className="col-12 col-sm-6 col-lg-3 px-1 myProduct">
                 <div className="card">
                     <div className="card-top">
-                        <img className="card-img-top" src={this.props.sp.img} />
+                        <img className="card-img-top" src={img} />
                     </div>
                     <div className="card-body">
-                        <h4 className="card-title" style={{}}>{this.props.sp.name}</h4>
+                        <h4 className="card-title" style={{}}>{name}</h4>
+                        <p>{(price).toLocaleString()} VND</p>
                         <div className="card-content">
                             {/* Button xem chi tiết */}
                             <button
@@ -21,8 +23,8 @@ export default class Product extends Component {
                                 onClick={() => this.props.xemThongTin(this.props.sp)}
                             >Xem</button>
 
-                            {/* Button thêm và xóa */}
-                            <button
+                            {/* Button chọn sản phẩm */}
+                            <button 
                                 className="btn btn-success"
                                 onClick={() => this.props.chonSanPham(this.props.sp)}
                             >Thêm</button>

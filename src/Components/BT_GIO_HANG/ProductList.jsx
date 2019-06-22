@@ -9,7 +9,7 @@ export default class ProductList extends Component {
                         sp={item} 
                         xemThongTin = {this.props.xemThongTin}
                         chonSanPham = {this.props.chonSanPham}
-                        xoaSPGioHang = {this.props.xoaSPGioHang}
+                        // xoaSPGioHang = {this.props.xoaSPGioHang}
                         key={index}
                     />
         })
